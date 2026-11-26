@@ -15,7 +15,7 @@ export interface DBMember {
   name: string;
   email: string | null;
   phone: string;
-  plan: string | { id: number; name: string; [k: string]: any };
+  plan: string | { id: number; name: string;[k: string]: any };
   plan_price: number | null;
   plan_amount?: number;
   amount_paid?: number | null;
@@ -90,7 +90,9 @@ export interface RevenueData {
   totalMembersCount: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://gym-management-backend-hoki.onrender.com/api";
 
 /**
  * Normalizes a database member record (DBMember) to frontend structure (Member).
@@ -295,7 +297,7 @@ export async function deleteMember(id: number): Promise<void> {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.error || "Failed to delete member");
   }
-  
+
   const payload = await response.json();
   if (!payload.success) {
     throw new Error(payload.error || "Failed to delete member");
